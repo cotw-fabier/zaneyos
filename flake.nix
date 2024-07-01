@@ -22,8 +22,8 @@
     { nixpkgs, home-manager, ... }@inputs:
     let
       system = "x86_64-linux";
-      host = "default";
-      username = "zaney";
+      host = "h4ckr";
+      username = "fabier";
     in
     {
       nixosConfigurations = {

@@ -65,7 +65,7 @@
               "dummy"
               "mode-switcher"
             ];
-            background-image = mkLiteral ''url("~/Pictures/Wallpapers/beautifulmountainscape.jpg", width)'';
+            background-image = mkLiteral ''url("~/Pictures/Wallpapers/fabier_Confident_anime_dark_angel_with_massive_dark_wings_with__01ad0881-59c8-495b-84bd-4f125972d0d4.png", width)'';
           };
           "entry" = {
             enabled = true;
