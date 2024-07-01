@@ -241,21 +241,24 @@
     plugins = [ pkgs.evolution-ews ];
 };
 
+
+
   environment.systemPackages = with pkgs; [
     #Typescript Development
     nodejs
 
     #Flutter Development
-    #android-studio
-    #flutter
-    #jdk17
-    #clang
-    #cmake
-    #ninja
-    #pkg-config
-    #pcre
-    #epoxy
-    #gtk3
+    android-studio
+    flutter
+    androidSdk
+    jdk17
+    clang
+    cmake
+    ninja
+    pkg-config
+    pcre
+    epoxy
+    gtk3
 
     vim
     wget
@@ -329,6 +332,7 @@
   environment.variables = {
     ZANEYOS_VERSION = "2.2";
     ZANEYOS = "true";
+    NIXPKGS_ACCEPT_ANDROID_SDK_LICENSE = "1";
   };
   
   #force wayland on electron

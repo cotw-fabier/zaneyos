@@ -1,4 +1,10 @@
-{ pkgs ? import <nixpkgs> {} }:
+{ 
+  pkgs,
+  lib,
+  host,
+  config,
+  ...
+}: 
 
 let
   buildToolsVersion = "33.0.2";
@@ -9,6 +15,7 @@ let
   };
   androidSdk = androidComposition.androidsdk;
 in
+with lib;
 pkgs.mkShell {
   buildInputs = [
     pkgs.flutter
@@ -22,6 +29,6 @@ pkgs.mkShell {
 
   nixpkgs.config = {
     android_sdk.accept_license = true;
-    allowUnfree = true;
   };
 }
+

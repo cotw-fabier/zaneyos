@@ -1,11 +1,20 @@
 {
-  pkgs,
+  pkgs ? import <nixpkgs> { config.android_sdk.accept_license = true;},
   username,
   host,
   ...
 }:
 let
   inherit (import ./variables.nix) gitUsername gitEmail;
+  
+  #Configure NPM Global & Flutter
+  androidComposition = pkgs.androidenv.composeAndroidPackages {
+    buildToolsVersions = ["33.0.2"];
+    platformVersions = ["33"];
+    abiVersions = [ "arm64-v8a"];
+  };
+  androidSdk = androidComposition.androidsdk;
+
 in
 {
   # Home Manager Settings
@@ -18,7 +27,7 @@ in
     ../../config/emoji.nix
     ../../config/hyprland.nix
     ../../config/neovim.nix
-    ../../config/flutter.nix
+    #../../config/flutter.nix
     ../../config/rofi/rofi.nix
     ../../config/rofi/config-emoji.nix
     ../../config/rofi/config-long.nix
@@ -27,8 +36,11 @@ in
     ../../config/wlogout.nix
   ];
 
-  #Configure NPM Global
-  home.sessionPath = ["$HOME/.npm-global/bin"];
+  #Configure NPM and Android SDK Globals
+  home.sessionPath = ["$HOME/.npm-global/bin" "${androidSdk}/libexec/android-sdk"];
+  
+  #Flutter Android SDK
+  nixpkgs.config.android-sdk.accept_license = true;
 
   # Place Files Inside Home Directory
   home.file."Pictures/Wallpapers" = {
