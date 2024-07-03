@@ -128,33 +128,33 @@ in
   networking.hostName = host;
   networking.timeServers = options.networking.timeServers.default ++ [ "pool.ntp.org" ];
 
-  #Setup The Void NAS
+ #Setup The Void NAS
   fileSystems."/mnt/thevoid/backup" = {
     device = "//192.168.50.155/Backup"; # Replace 'sharename' with the actual share name on your NAS
     fsType = "cifs"; # File system type
     options = [ "credentials=/home/${username}/.nascreds" "rw" ]; # Reference the credentials file
   };
 
-  #filesystems."/mnt/thevoid/dboflix" = {
-    #device = "//192.168.50.155/dboflix"; # replace 'sharename' with the actual share name on your nas
-    #fstype = "cifs"; # file system type
-    #options = [ "credentials=/home/${username}/.nascreds" "rw" ]; # reference the credentials file
-  #};
-#
-#
-  #filesystems."/mnt/thevoid/photos" = {
-    #device = "//192.168.50.155/Photos"; # replace 'sharename' with the actual share name on your nas
-    #fstype = "cifs"; # file system type
-    #options = [ "credentials=/home/${username}/.nascreds" "rw" ]; # reference the credentials file
-  #};
-#
-  #filesystems."/mnt/thevoid/video" = {
-    #device = "//192.168.50.155/Video"; # replace 'sharename' with the actual share name on your nas
-    #fstype = "cifs"; # file system type
-    #options = [ "credentials=/home/${username}/.nascreds" "rw" ]; # reference the credentials file
-  #};
-  # set your time zone.
-  time.timezone = "america/new_york";
+  fileSystems."/mnt/thevoid/dboflix" = {
+    device = "//192.168.50.155/dboflix"; # Replace 'sharename' with the actual share name on your NAS
+    fsType = "cifs"; # File system type
+    options = [ "credentials=/home/${username}/.nascreds" "rw" ]; # Reference the credentials file
+  };
+
+  fileSystems."/mnt/thevoid/photos" = {
+    device = "//192.168.50.155/Photos"; # Replace 'sharename' with the actual share name on your NAS
+    fsType = "cifs"; # File system type
+    options = [ "credentials=/home/${username}/.nascreds" "rw" ]; # Reference the credentials file
+  };
+
+  fileSystems."/mnt/thevoid/video" = {
+    device = "//192.168.50.155/Videos"; # Replace 'sharename' with the actual share name on your NAS
+    fsType = "cifs"; # File system type
+    options = [ "credentials=/home/${username}/.nascreds" "rw" ]; # Reference the credentials file
+  };
+
+  # Set your time zone.
+  time.timeZone = "America/New_York";
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
@@ -459,8 +459,8 @@ in
       alsa.support32Bit = true;
       pulse.enable = true;
     };
-    rpcbind.enable = true;
-    nfs.server.enable = true;
+    rpcbind.enable = false;
+    nfs.server.enable = false;
   };
   systemd.services.flatpak-repo = {
     path = [ pkgs.flatpak ];
