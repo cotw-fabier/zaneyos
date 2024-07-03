@@ -18,6 +18,6 @@
   terminal = "kitty"; # Set Default System Terminal
 
   # Theme
-  theme = "atelier-lakeside";
+  theme = "Cyberpunk";
 
 }

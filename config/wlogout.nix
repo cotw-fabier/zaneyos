@@ -30,7 +30,7 @@
       }
       {
         "label" = "lock";
-        "action" = "sleep 1; hyprlock";
+        "action" = "hyprlock & sleep 10; hyprctl dispatch dpms off";
         "text" = "Lock";
         "keybind" = "l";
       }

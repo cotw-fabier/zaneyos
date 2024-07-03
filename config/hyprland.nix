@@ -82,16 +82,20 @@ with lib;
           windowrule = float, zoom
           windowrulev2 = stayfocused, title:^()$,class:^(steam)$
           windowrulev2 = minsize 1 1, title:^()$,class:^(steam)$
-          windowrulev2 = opacity 0.9 0.7, class:^(Brave)$
+          windowrulev2 = opacity 0.9 0.7, class:^(firefox)$
+          windowrulev2 = opacity 1.0 1.0, class:^(firefox)$, title:.*YouTube.*
           windowrulev2 = opacity 0.9 0.7, class:^(thunar)$
+          windowrulev2 = opacity 0.9 0.7, title:^(YouTube Music)$
+          windowrulev2 = opacity 0.9 0.7, class:^(kitty)$
+          windowrulev2 = opacity 0.9 0.7, class:^(discord)$
           gestures {
             workspace_swipe = true
             workspace_swipe_fingers = 3
           }
           misc {
             initial_workspace_tracking = 0
-            mouse_move_enables_dpms = true
-            key_press_enables_dpms = false
+            mouse_move_enables_dpms = false
+            key_press_enables_dpms = true
           }
           animations {
             enabled = yes
@@ -148,6 +152,7 @@ with lib;
           bind = ${modifier},P,pseudo,
           bind = ${modifier}SHIFT,I,togglesplit,
           bind = ${modifier},F,fullscreen,
+          bind = ${modifier}CONTROL,F,fakefullscreen,
           bind = ${modifier}SHIFT,F,togglefloating,
           bind = ${modifier}SHIFT,C,exit,
           bind = ${modifier}SHIFT,left,movewindow,l
@@ -205,6 +210,7 @@ with lib;
           bind = ,XF86AudioPrev, exec, playerctl previous
           bind = ,XF86MonBrightnessDown,exec,brightnessctl set 5%-
           bind = ,XF86MonBrightnessUp,exec,brightnessctl set +5%
+          bind = ${modifier}CONTROL, L, exec, hyprlock & sleep 10; hyprctl dispatch dpms off
         ''
       ];
   };

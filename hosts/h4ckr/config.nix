@@ -7,6 +7,18 @@
   ...
 }:
 
+let 
+   #Android SDK
+   
+    buildToolsVersion = "34.0.0";
+    androidComposition = pkgs.androidenv.composeAndroidPackages {
+        buildToolsVersions = [ buildToolsVersion "30.0.3" ];
+        platformVersions = [ "29" "30" "31" "32" "33" "34" "28" ];
+        abiVersions = [ "armeabi-v7a" "arm64-v8a" ];
+      };
+    androidSdk = androidComposition.androidsdk;
+  
+in
 {
   imports = [
     ./hardware.nix
@@ -231,6 +243,9 @@
 
   nixpkgs.config.allowUnfree = true;
 
+  #Accept Android SDK
+  nixpkgs.config.android_sdk.accept_license = true;
+
   users = {
     mutableUsers = true;
   };
@@ -250,7 +265,6 @@
     #Flutter Development
     android-studio
     flutter
-    androidSdk
     jdk17
     clang
     cmake
@@ -332,11 +346,14 @@
   environment.variables = {
     ZANEYOS_VERSION = "2.2";
     ZANEYOS = "true";
-    NIXPKGS_ACCEPT_ANDROID_SDK_LICENSE = "1";
   };
   
   #force wayland on electron
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
+
+  environment.sessionVariables.ANDROID_SDK_ROOT = "${androidSdk}/libexec/android-sdk";
+  environment.sessionVariables.GRADLE_OPTS = "-Dorg.gradle.project.android.aapt2FromMavenOverride=${androidSdk}/libexec/android-sdk/build-tools/34.0.0/aapt2";
 
   # Extra Portal Configuration
   xdg.portal = {
@@ -509,4 +526,34 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
+
+  # Activate Samba
+  services.samba = {
+  enable = true;
+  securityType = "user";
+  openFirewall = true;
+  extraConfig = ''
+    workgroup = WORKGROUP
+    server string = smbnix
+    netbios name = smbnix
+    security = user 
+    #use sendfile = yes
+    #max protocol = smb2
+    # note: localhost is the ipv6 localhost ::1
+    hosts allow = 192.168.0. 127.0.0.1 localhost
+    hosts deny = 0.0.0.0/0
+    guest account = nobody
+    map to guest = bad user
+  '';
+  };
+
+ services.samba-wsdd = {
+  enable = true;
+  openFirewall = true;
+ };
+
+ networking.firewall.enable = true;
+ networking.firewall.allowPing = true;
+
+
 }

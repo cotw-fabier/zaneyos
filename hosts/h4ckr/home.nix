@@ -1,19 +1,12 @@
 {
-  pkgs ? import <nixpkgs> { config.android_sdk.accept_license = true;},
+  pkgs, 
   username,
   host,
   ...
 }:
 let
   inherit (import ./variables.nix) gitUsername gitEmail;
-  
-  #Configure NPM Global & Flutter
-  androidComposition = pkgs.androidenv.composeAndroidPackages {
-    buildToolsVersions = ["33.0.2"];
-    platformVersions = ["33"];
-    abiVersions = [ "arm64-v8a"];
-  };
-  androidSdk = androidComposition.androidsdk;
+
 
 in
 {
@@ -37,10 +30,8 @@ in
   ];
 
   #Configure NPM and Android SDK Globals
-  home.sessionPath = ["$HOME/.npm-global/bin" "${androidSdk}/libexec/android-sdk"];
+  home.sessionPath = ["$HOME/.npm-global/bin"];
   
-  #Flutter Android SDK
-  nixpkgs.config.android-sdk.accept_license = true;
 
   # Place Files Inside Home Directory
   home.file."Pictures/Wallpapers" = {
@@ -172,6 +163,7 @@ in
     kitty = {
       enable = true;
       package = pkgs.kitty;
+      theme = "Cyberpunk";
       settings = {
         scrollback_lines = 2000;
         wheel_scroll_min_lines = 1;
@@ -183,9 +175,8 @@ in
         tab_fade 1
         active_tab_font_style   bold
         inactive_tab_font_style bold
-        background_blur 100
-        background_opacity 0.8
         dynamic_background_opacity yes
+        background_opacity 0.6
         '';
     };
     bash = {
