@@ -88,6 +88,7 @@ with lib;
           windowrulev2 = opacity 0.9 0.7, title:^(YouTube Music)$
           windowrulev2 = opacity 0.9 0.7, class:^(kitty)$
           windowrulev2 = opacity 0.9 0.7, class:^(discord)$
+          windowrulev2 = opacity 0.9 0.7, class:^(Bitwarden)$
           gestures {
             workspace_swipe = true
             workspace_swipe_fingers = 3
@@ -143,6 +144,7 @@ with lib;
           bind = ${modifier},S,exec,screenshootin
           bind = ${modifier},D,exec,discord
           bind = ${modifier},O,exec,obs
+          bind = ${modifier},Z,exec,bitwarden
           bind = ${modifier},C,exec,hyprpicker -a
           bind = ${modifier},G,exec,gimp
           bind = ${modifier}SHIFT,G,exec,godot4
