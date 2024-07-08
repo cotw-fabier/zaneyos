@@ -298,6 +298,8 @@ in
     pcre
     epoxy
     gtk3
+    lua-language-server
+    clang-tools
 
     #Rust Toolchain
     rustup
